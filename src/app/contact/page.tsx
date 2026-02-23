@@ -1,8 +1,15 @@
 'use client';
 
 import Button from '@/components/ui/Button';
+import { useSiteSettings } from '@/lib/hooks/useSiteSettings';
 
 export default function ContactPage() {
+  const { email, phone, address } = useSiteSettings();
+
+  // Create a clean "display format" for phone if needed
+  const displayPhone = phone || '+1.800.555.0199';
+  const displayEmail = email || 'concierge@solange.maison';
+
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#FDFBF7] selection:bg-[#C5A059] selection:text-white pt-32 lg:pt-40 pb-20">
 
@@ -32,24 +39,26 @@ export default function ContactPage() {
               <div className="space-y-12">
                 <div className="group">
                   <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-2 transition-colors group-hover:text-[#C5A059]">General Inquiries</span>
-                  <a href="mailto:concierge@solange.maison" className="text-2xl font-serif text-[#FDFBF7] border-b border-transparent hover:border-[#C5A059] transition-all pb-1">
-                    concierge@solange.maison
-                  </a>
-                </div>
-
-                <div className="group">
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-2 transition-colors group-hover:text-[#C5A059]">Editorial & Press</span>
-                  <a href="mailto:press@solange.maison" className="text-2xl font-serif text-[#FDFBF7] border-b border-transparent hover:border-[#C5A059] transition-all pb-1">
-                    press@solange.maison
+                  <a href={`mailto:${displayEmail}`} className="text-2xl font-serif text-[#FDFBF7] border-b border-transparent hover:border-[#C5A059] transition-all pb-1">
+                    {displayEmail}
                   </a>
                 </div>
 
                 <div className="group">
                   <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-2 transition-colors group-hover:text-[#C5A059]">Direct Line</span>
-                  <span className="text-2xl font-serif text-[#FDFBF7]">
-                    +1.800.555.0199
-                  </span>
+                  <a href={`tel:${displayPhone.replace(/[^\d+]/g, '')}`} className="text-2xl font-serif text-[#FDFBF7] border-b border-transparent hover:border-[#C5A059] transition-all pb-1 block w-fit">
+                    {displayPhone}
+                  </a>
                 </div>
+
+                {address && (
+                  <div className="group">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-2 transition-colors group-hover:text-[#C5A059]">Headquarters</span>
+                    <span className="text-sm font-serif text-[#C8C0B0] max-w-xs block leading-relaxed">
+                      {address}
+                    </span>
+                  </div>
+                )}
               </div>
 
             </div>
