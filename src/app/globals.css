@@ -227,3 +227,38 @@
 }
 
 /* was: #4b5563 — boosted */
+
+/* ── Hero Video Mobile Fixes ─────────────────────────────────────── */
+
+/* Ensure the hero section fills the viewport on all devices including phones */
+.hero-section {
+  min-height: 100svh;
+  /* safe viewport height for mobile browsers with toolbars */
+}
+
+/* Hero video card — fixed proportional height on phones so video is always visible */
+.hero-video-container {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  /* Use a fixed height on very small screens so the aspect-ratio doesn't collapse */
+  height: clamp(320px, 70vw * 1.78, 70vh);
+  aspect-ratio: 9 / 16;
+}
+
+/* Make sure <video> elements never block interaction or hide on mobile */
+.hero-video-container video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* On medium+ screens let the container resize naturally */
+@media (min-width: 768px) {
+  .hero-video-container {
+    height: auto;
+    max-width: 380px;
+  }
+}

@@ -4,10 +4,18 @@ import AdminSettings from '@/models/AdminSettings';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 
-async function verifyAdmin() {
+async function verifyAdmin(request?: Request) {
+    // Prefer cookie-based token (current request), fall back to Authorization header if present
     const cookieStore = await cookies();
-    const token = cookieStore.get('admin_token')?.value;
+    let token = cookieStore.get('admin_token')?.value;
+
+    if (!token && request) {
+        const auth = request.headers.get('authorization') || request.headers.get('Authorization');
+        if (auth && auth.startsWith('Bearer ')) token = auth.split(' ')[1];
+    }
+
     if (!token) return false;
+
     const JWT_SECRET = process.env.JWT_SECRET || process.env.ADMIN_SECRET || process.env.NEXTAUTH_SECRET || 'fallback_secret';
     try {
         jwt.verify(token, JWT_SECRET);
@@ -31,7 +39,7 @@ export async function GET() {
 
 // Admin PATCH — requires auth
 export async function PATCH(request: Request) {
-    if (!(await verifyAdmin())) {
+    if (!(await verifyAdmin(request))) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

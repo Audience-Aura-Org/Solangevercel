@@ -1,9 +1,17 @@
 'use client';
 
 import Link from 'next/link';
+import { useSiteSettings } from '@/lib/hooks/useSiteSettings';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { instagram, tiktok, email, phone, address } = useSiteSettings();
+
+  // Derive display-friendly strings
+  const displayEmail = email || 'Experience@solange.hair';
+  const displayPhone = phone || '+1 301 454 9435';
+  const displayAddress = address || '6495 New Hampshire Ave\nHyattsville, MD';
+  const addressLines = displayAddress.split('\n').filter(Boolean);
 
   return (
     <footer className="bg-[#0A0A0A] border-t border-[#1A1A1A] py-16 px-6 lg:px-12 text-center md:text-left">
@@ -34,17 +42,26 @@ export default function Footer() {
 
           <div className="flex flex-col gap-4 items-center md:items-start mx-auto md:mx-0">
             <h4 className="text-[#C5A059] mb-4 font-medium">Social</h4>
-            <a href="#" className="hover:text-white transition-colors">Instagram</a>
-            <a href="#" className="hover:text-white transition-colors">Pinterest</a>
-            <a href="#" className="hover:text-white transition-colors">editorial</a>
+            <a href={instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              Instagram
+            </a>
+            <a href={tiktok} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              TikTok
+            </a>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
 
           <div className="flex flex-col gap-4 items-center md:items-start mx-auto md:mx-0 col-span-1">
             <h4 className="text-[#C5A059] mb-4 font-medium text-center md:text-left">Concierge</h4>
-            <span className="text-[#FDFBF7]/60">6495 New Hampshire Ave</span>
-            <span className="text-[#FDFBF7]/60">Hyattsville, MD</span>
-            <span className="text-[#FDFBF7]/80">+1 301 454 9435</span>
-            <span>Experience@solange.hair</span>
+            {addressLines.map((line, i) => (
+              <span key={i} className="text-[#FDFBF7]/60">{line}</span>
+            ))}
+            <a href={`tel:${displayPhone.replace(/\s/g, '')}`} className="text-[#FDFBF7]/80 hover:text-white transition-colors">
+              {displayPhone}
+            </a>
+            <a href={`mailto:${displayEmail}`} className="hover:text-white transition-colors normal-case">
+              {displayEmail}
+            </a>
           </div>
 
         </div>

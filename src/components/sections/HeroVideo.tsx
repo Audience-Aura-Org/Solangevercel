@@ -29,6 +29,18 @@ export default function HeroVideo({
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const bgVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Eagerly start the background video as soon as possible
+  useEffect(() => {
+    const bg = bgVideoRef.current;
+    if (bg) {
+      bg.muted = true;
+      bg.playsInline = true;
+      // Try to play immediately; some browsers need a user-gesture but autoPlay + muted should work
+      bg.play().catch(() => { /* silently ignore */ });
+    }
+  }, []);
 
   // Manage video playback: only play the active video, pause/reset others
   useEffect(() => {
@@ -36,6 +48,7 @@ export default function HeroVideo({
       if (!vid) return;
       if (idx === currentVideoIndex) {
         vid.currentTime = 0;
+        vid.muted = true; // ensure muted before play (required for autoplay on iOS)
         vid.play().catch(() => { /* Auto-play may be blocked initially by browser */ });
       } else {
         vid.pause();
@@ -81,23 +94,28 @@ export default function HeroVideo({
   };
 
   return (
-    <section className="relative w-full min-h-[100vh] pt-32 pb-16 px-6 lg:px-12 flex items-center justify-center overflow-hidden">
+    <section className="hero-section relative w-full min-h-[100svh] pt-32 pb-16 px-6 lg:px-12 flex items-center justify-center overflow-hidden">
       {/* Ambient Background Video */}
       <div className="absolute inset-0 z-0">
         <video
+          ref={bgVideoRef}
           src={videoList[0]}
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-full object-cover opacity-60 md:opacity-30 mix-blend-luminosity scale-105"
+          preload="auto"
+          className="w-full h-full object-cover opacity-80 md:opacity-40 mix-blend-luminosity scale-105"
           poster={fallbackImage}
+          onCanPlay={() => {
+            bgVideoRef.current?.play().catch(() => { });
+          }}
         />
         {/* Darkening overlay with blur to ensure text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/90 backdrop-blur-[2px]" />
       </div>
 
-      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-center justify-between gap-16 z-20">
+      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-center justify-between gap-8 md:gap-16 z-20">
 
         {/* Right Video Slider (Top on Mobile to sit right after Nav) */}
         <div
@@ -105,8 +123,17 @@ export default function HeroVideo({
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Mobile Screen Ratio Container */}
-          <div className="relative w-full max-w-[320px] sm:max-w-[380px] aspect-[9/16] rounded-2xl overflow-hidden border border-[#222] shadow-2xl bg-[#0A0A0A]">
+          {/* Mobile Screen Ratio Container — min height so it's always visible on phones */}
+          <div
+            className="hero-video-container relative rounded-2xl overflow-hidden border border-[#222] shadow-2xl bg-[#0A0A0A]"
+            style={{
+              width: '100%',
+              maxWidth: '320px',
+              /* Fixed height on mobile so the video is always visible regardless of aspect ratio */
+              height: 'min(72vw * (16/9), 68vh)',
+              aspectRatio: '9 / 16',
+            }}
+          >
 
             {videoList.map((video, idx) => (
               <video
@@ -115,9 +142,15 @@ export default function HeroVideo({
                 src={video}
                 muted
                 playsInline
+                preload={idx === 0 ? 'auto' : 'metadata'}
                 autoPlay={idx === currentVideoIndex}
                 onEnded={handleNext}
                 onTimeUpdate={idx === currentVideoIndex ? handleTimeUpdate : undefined}
+                onCanPlay={() => {
+                  if (idx === currentVideoIndex) {
+                    videoRefs.current[idx]?.play().catch(() => { });
+                  }
+                }}
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
                   }`}
                 poster={fallbackImage}
@@ -156,7 +189,7 @@ export default function HeroVideo({
         </div>
 
         {/* Left Content (Bottom on Mobile) */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left mt-8 md:mt-0">
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left mt-4 md:mt-0">
           <div className="flex flex-col mb-8 gap-3 items-center md:items-start">
             <span className="text-[10px] text-gray-400 tracking-[0.4em] uppercase font-medium">
               La Maison de Beauté
