@@ -228,37 +228,62 @@
 
 /* was: #4b5563 — boosted */
 
-/* ── Hero Video Mobile Fixes ─────────────────────────────────────── */
-
-/* Ensure the hero section fills the viewport on all devices including phones */
-.hero-section {
-  min-height: 100svh;
-  /* safe viewport height for mobile browsers with toolbars */
+/* ── Page Transitions ────────────────────────────────────────────── */
+/* Ensure page transitions don't cause layout shift */
+main {
+  transform: translateZ(0);
+  /* promote to GPU layer */
 }
 
-/* Hero video card — fixed proportional height on phones so video is always visible */
+/* ── Hero Section ────────────────────────────────────────────────── */
+.hero-section {
+  min-height: 100svh;
+  /* safe-viewport accounts for mobile browser toolbars */
+  contain: layout style;
+  /* performance hint */
+}
+
+/* ── Hero Video Card ─────────────────────────────────────────────── */
+/* Mobile: give the container an explicit computed height so it never  */
+/* collapses when the flex parent has no intrinsic height.              */
 .hero-video-container {
   position: relative;
   width: 100%;
   max-width: 320px;
-  /* Use a fixed height on very small screens so the aspect-ratio doesn't collapse */
-  height: clamp(320px, 70vw * 1.78, 70vh);
+  /* clamp: min 320px, preferred ~70vw scaled to 16/9 AR, max 70vh */
+  height: clamp(320px, 124.6vw, 70vh);
   aspect-ratio: 9 / 16;
+  /* Suppress native browser overlay controls on mobile */
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* Make sure <video> elements never block interaction or hide on mobile */
+/* All videos inside the container fill it and can't overflow */
 .hero-video-container video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Hide the native play button overlay that some browsers show */
+  pointer-events: none;
 }
 
-/* On medium+ screens let the container resize naturally */
+/* Restore pointer events for interactive controls above videos */
+.hero-video-container>div {
+  pointer-events: auto;
+}
+
+/* On tablet/desktop – let aspect-ratio drive height naturally */
 @media (min-width: 768px) {
   .hero-video-container {
     height: auto;
     max-width: 380px;
   }
+}
+
+/* ── Suppress iOS tap highlight on videos ────────────────────────── */
+video {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
