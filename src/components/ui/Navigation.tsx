@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 export default function Navigation() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<{ role: string; email: string } | null>(null);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -32,9 +32,11 @@ export default function Navigation() {
     await fetch('/api/auth/logout', { method: 'POST' });
     setUser(null);
     setProfileOpen(false);
-    setIsOpen(false);
+    setMobileMenuOpen(false);
     window.location.href = '/';
   };
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
     <>
@@ -147,19 +149,20 @@ export default function Navigation() {
             {/* Mobile Toggle (Right) */}
             <div className="flex justify-end w-1/3 md:hidden">
               <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="flex flex-col justify-center gap-[5px] w-6 h-6 z-50 mix-blend-difference"
+                aria-label="Toggle mobile menu"
               >
-                <span className={`w-full h-[1px] bg-white transition-all duration-500 origin-right ${isOpen ? '-rotate-45' : ''}`}></span>
-                <span className={`w-full h-[1px] bg-white transition-all duration-500 origin-right ${isOpen ? 'rotate-45' : ''}`}></span>
+                <span className={`w-full h-[1px] bg-white transition-all duration-500 origin-right ${mobileMenuOpen ? '-rotate-45' : ''}`}></span>
+                <span className={`w-full h-[1px] bg-white transition-all duration-500 origin-right ${mobileMenuOpen ? 'rotate-45' : ''}`}></span>
               </button>
             </div>
           </div>
         </div>
 
         {/* Fullscreen Mobile Menu */}
-        <div className={`fixed inset-0 bg-[#0A0A0A] z-40 flex flex-col justify-center items-center transition-opacity duration-700 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-          <div className="flex flex-col items-center gap-10 text-center">
+        <div className={`fixed inset-0 bg-[#0A0A0A] z-40 flex flex-col justify-start items-center transition-opacity duration-700 overflow-y-auto pt-20 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+          <div className="flex flex-col items-center gap-10 text-center pb-10">
             {[
               { href: '/', label: 'Home' },
               { href: '/services', label: 'Services' },
@@ -167,7 +170,7 @@ export default function Navigation() {
               ...(user
                 ? [
                   { href: '/account', label: 'My Orders' },
-                  ...(user.role === 'admin' || user.role === 'staff' ? [{ href: '/admin', label: 'Admin' }] : [])
+                  ...(user.role === 'admin' || user.role === 'staff' ? [{ href: '/admin', label: 'Admin Dashboard' }] : [])
                 ]
                 : [
                   { href: '/login', label: 'Login' },
@@ -179,30 +182,30 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-2xl font-serif text-gray-300 hover:text-white transition-colors tracking-widest uppercase transform transition-transform duration-700 delay-${i * 100} ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-                onClick={() => setIsOpen(false)}
+                className={`text-2xl font-serif text-gray-300 hover:text-white transition-colors tracking-widest uppercase transform transition-transform duration-700 ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                onClick={closeMobileMenu}
               >
                 {item.label}
               </Link>
             ))}
             {user && (
               <button
-                onClick={handleLogout}
-                className={`text-2xl font-serif text-gray-300 hover:text-white transition-colors tracking-widest uppercase transform transition-transform duration-700 delay-500 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                onClick={() => { handleLogout(); closeMobileMenu(); }}
+                className={`text-2xl font-serif text-gray-300 hover:text-white transition-colors tracking-widest uppercase transform transition-transform duration-700 ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
               >
                 Logout
               </button>
             )}
             <Link
               href="/booking"
-              className={`mt-10 px-8 py-4 border border-[#C5A059] text-[#C5A059] text-sm tracking-[0.2em] uppercase hover:bg-[#C5A059] hover:text-white transition-all transform duration-700 delay-500 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-              onClick={() => setIsOpen(false)}
+              className={`mt-10 px-8 py-4 border border-[#C5A059] text-[#C5A059] text-sm tracking-[0.2em] uppercase hover:bg-[#C5A059] hover:text-white transition-all transform duration-700 ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+              onClick={closeMobileMenu}
             >
               Make a Reservation
             </Link>
 
             {/* Social Icons in mobile menu */}
-            <div className={`flex gap-6 mt-4 transition-all duration-700 delay-700 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className={`flex gap-6 mt-4 transition-all duration-700 ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#C5A059] transition-colors">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
               </a>
