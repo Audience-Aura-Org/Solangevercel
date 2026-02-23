@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
-import fs from 'fs/promises';
-import path from 'path';
+import { connectToDatabase } from '@/lib/mongodb';
+import mongoose from 'mongoose';
+import { GridFSBucket, ObjectId } from 'mongodb';
 
 async function verifyAdmin() {
     const cookieStore = await cookies();
@@ -20,12 +21,18 @@ async function verifyAdmin() {
 export async function GET() {
     if (!(await verifyAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     try {
-        const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-        await fs.mkdir(uploadsDir, { recursive: true });
-        const files = await fs.readdir(uploadsDir);
-        const items = await Promise.all(files.map(async (f) => {
-            const stat = await fs.stat(path.join(uploadsDir, f));
-            return { name: f, url: `/uploads/${f}`, size: stat.size, modified: stat.mtime };
+        // List files stored in GridFS 'uploads' bucket
+        await connectToDatabase();
+        const db = mongoose.connection.db as any;
+        const filesColl = db.collection('uploads.files');
+        const files = await filesColl.find().sort({ uploadDate: -1 }).toArray();
+        const items = files.map((f: any) => ({
+            _id: f._id.toString(),
+            name: f.filename,
+            url: `/api/uploads/${f._id.toString()}`,
+            size: f.length,
+            mime: f.contentType || f.metadata?.mime,
+            uploadDate: f.uploadDate
         }));
         return NextResponse.json({ files: items });
     } catch (error: any) {

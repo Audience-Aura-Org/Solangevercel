@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
-import fs from 'fs/promises';
-import path from 'path';
+import { connectToDatabase } from '@/lib/mongodb';
+import mongoose from 'mongoose';
+import { GridFSBucket, ObjectId } from 'mongodb';
 
 async function verifyAdmin() {
     const cookieStore = await cookies();
@@ -39,15 +40,27 @@ export async function POST(request: Request) {
         const MAX_BYTES = Number(process.env.MAX_UPLOAD_BYTES || 20 * 1024 * 1024); // 20MB default
         if (buffer.length > MAX_BYTES) return NextResponse.json({ error: 'File too large' }, { status: 400 });
 
+        // Use GridFS to store file in MongoDB so we don't rely on writable filesystem
+        await connectToDatabase();
+        const db = mongoose.connection.db as any;
+        const bucket = new GridFSBucket(db, { bucketName: 'uploads' });
+
         const safeName = `${Date.now()}-${filename.replace(/[^a-zA-Z0-9.\-_]/g, '-')}`;
-        const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-        await fs.mkdir(uploadsDir, { recursive: true });
-        const filePath = path.join(uploadsDir, safeName);
+        const uploadStream = bucket.openUploadStream(safeName, {
+            metadata: { mime },
+            contentType: mime,
+        });
 
-        await fs.writeFile(filePath, buffer);
+        uploadStream.end(buffer);
 
-        const url = `/uploads/${safeName}`;
-        return NextResponse.json({ url, size: buffer.length, mime });
+        await new Promise<void>((resolve, reject) => {
+            uploadStream.on('finish', () => resolve());
+            uploadStream.on('error', (err) => reject(err));
+        });
+
+        const fileId = uploadStream.id as unknown as { toString(): string };
+        const url = `/api/uploads/${fileId.toString()}`;
+        return NextResponse.json({ url, size: buffer.length, mime, id: fileId.toString() });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
