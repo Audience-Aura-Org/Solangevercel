@@ -45,10 +45,20 @@ async function uploadFile(file: File): Promise<string> {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ filename: file.name, dataUrl: reader.result }),
                 });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.error);
+
+                // Read as text first — if the server returned a non-JSON body
+                // (e.g. "Request Entity Too Large") we still get a clean error.
+                const text = await res.text();
+                let data: any;
+                try {
+                    data = JSON.parse(text);
+                } catch {
+                    throw new Error(`Server error (${res.status}): ${text.slice(0, 200)}`);
+                }
+
+                if (!res.ok) throw new Error(data.error || `Upload failed (${res.status})`);
                 resolve(data.url);
-            } catch (e) { reject(e); }
+            } catch (e: any) { reject(e); }
         };
         reader.onerror = () => reject(reader.error);
         reader.readAsDataURL(file);
