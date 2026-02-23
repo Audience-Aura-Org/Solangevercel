@@ -285,7 +285,7 @@ export default function BookingPage() {
         </div>
 
         {/* ─── Step Indicator ─── */}
-        <div className="flex items-center gap-3 mb-10">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-10">
           {(Object.entries(STEPS) as [Step, { n: string; label: string }][]).map(([key, val], i, arr) => {
             const isDone = Object.keys(STEPS).indexOf(step) > i;
             const isActive = key === step;

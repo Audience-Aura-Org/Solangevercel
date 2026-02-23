@@ -152,11 +152,11 @@ export default function Navigation() {
             <div className="flex justify-end w-1/3 md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="flex flex-col justify-center gap-[5px] w-6 h-6 z-50 mix-blend-difference"
+                className="flex flex-col justify-center gap-[5px] w-6 h-6 z-50 relative"
                 aria-label="Toggle mobile menu"
               >
-                <span className={`w-full h-[1px] bg-white transition-all duration-500 origin-right ${mobileMenuOpen ? '-rotate-45' : ''}`}></span>
-                <span className={`w-full h-[1px] bg-white transition-all duration-500 origin-right ${mobileMenuOpen ? 'rotate-45' : ''}`}></span>
+                <span className={`w-full h-[1.5px] bg-white transition-all duration-500 origin-right ${mobileMenuOpen ? '-rotate-45' : ''}`}></span>
+                <span className={`w-full h-[1.5px] bg-white transition-all duration-500 origin-right ${mobileMenuOpen ? 'rotate-45' : ''}`}></span>
               </button>
             </div>
           </div>
