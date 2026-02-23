@@ -178,7 +178,7 @@ export default function Navigation() {
                 ]
               ),
               { href: '/contact', label: 'Contact' },
-            ].map((item, i) => (
+            ].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
