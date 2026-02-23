@@ -3,20 +3,23 @@ import { connectToDatabase } from '@/lib/mongodb';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 
+const ADMIN_EMAIL = process.env.ADMIN_SEED_EMAIL || 'admin@solange.salon';
+const ADMIN_PASSWORD = process.env.ADMIN_SEED_PASSWORD || 'password123';
+
 export async function GET() {
     try {
         await connectToDatabase();
 
-        const existingAdmin = await User.findOne({ email: 'admin@solange.salon' });
+        const existingAdmin = await User.findOne({ email: ADMIN_EMAIL });
         if (existingAdmin) {
-            return NextResponse.json({ message: 'Admin user already exists. Login with: admin@solange.salon / password123' });
+            return NextResponse.json({ message: `Admin user already exists. Login with: ${ADMIN_EMAIL} / ${ADMIN_PASSWORD}` });
         }
 
-        const hashedPassword = await bcrypt.hash('password123', 10);
+        const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD, 10);
 
         const adminUser = await User.create({
             name: 'Super Admin',
-            email: 'admin@solange.salon',
+            email: ADMIN_EMAIL,
             password: hashedPassword,
             role: 'admin',
         });
@@ -24,8 +27,8 @@ export async function GET() {
         return NextResponse.json({
             message: 'Admin user created successfully!',
             credentials: {
-                email: 'admin@solange.salon',
-                password: 'password123',
+                email: ADMIN_EMAIL,
+                password: ADMIN_PASSWORD,
                 role: adminUser.role,
             },
         }, { status: 201 });
