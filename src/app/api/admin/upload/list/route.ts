@@ -3,7 +3,6 @@ import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import { connectToDatabase } from '@/lib/mongodb';
 import mongoose from 'mongoose';
-import { GridFSBucket, ObjectId } from 'mongodb';
 
 async function verifyAdmin() {
     const cookieStore = await cookies();
