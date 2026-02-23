@@ -74,7 +74,8 @@ export default function HeroVideo({
 
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const vid = e.currentTarget;
-    if (vid.currentTime >= 20) {
+    // ensure videos never play longer than 30 seconds per slot
+    if (vid.currentTime >= 30) {
       handleNext();
     }
   };
@@ -114,6 +115,7 @@ export default function HeroVideo({
                 src={video}
                 muted
                 playsInline
+                autoPlay={idx === currentVideoIndex}
                 onEnded={handleNext}
                 onTimeUpdate={idx === currentVideoIndex ? handleTimeUpdate : undefined}
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
