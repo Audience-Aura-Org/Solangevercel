@@ -24,7 +24,16 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
         headers.set('Content-Length', String(fileDoc.length || ''));
         headers.set('Cache-Control', 'public, max-age=31536000');
 
-        return new Response(downloadStream, { headers });
+        // Convert Node Readable stream into a Buffer before returning (compatible with Next.js Response)
+        const chunks: Buffer[] = [];
+        await new Promise<void>((resolve, reject) => {
+            downloadStream.on('data', (chunk: Buffer) => chunks.push(Buffer.from(chunk)));
+            downloadStream.on('end', () => resolve());
+            downloadStream.on('error', (err: any) => reject(err));
+        });
+
+        const body = Buffer.concat(chunks);
+        return new Response(body, { headers });
     } catch (err: any) {
         return NextResponse.json({ error: err.message }, { status: 500 });
     }
