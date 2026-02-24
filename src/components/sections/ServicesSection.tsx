@@ -52,25 +52,25 @@ export default function ServicesSection({ services: propServices }: ServicesSect
   })) : DEFAULT_SERVICES;
 
   return (
-    <section className="bg-[#080808] border-t border-[#141414] py-20 lg:py-32 px-6 lg:px-12">
+    <section className="bg-dark border-t border-surface py-20 lg:py-32 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         {/* Section header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 border-b border-[#141414] pb-10 text-center md:text-left">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 border-b border-surface pb-10 text-center md:text-left">
           <div className="mx-auto md:mx-0">
-            <span className="text-[9px] uppercase tracking-[0.45em] text-[#C5A059] block mb-4">Le Menu</span>
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#FDFBF7] leading-none tracking-tight">
+            <span className="text-[9px] uppercase tracking-[0.45em] text-accent block mb-4">Le Menu</span>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-serif text-primary leading-none tracking-tight">
               Our<br className="hidden md:block" />
-              <span className="italic font-light text-[#C5A059] md:ml-0 ml-2">Services.</span>
+              <span className="italic font-light text-accent md:ml-0 ml-2">Services.</span>
             </h2>
           </div>
-          <div className="max-w-sm mx-auto md:mx-0">
-            <p className="text-sm text-[#C8C0B0] leading-relaxed font-light">
+            <div className="max-w-sm mx-auto md:mx-0">
+            <p className="text-sm text-body leading-relaxed font-light">
               We elevate traditional hair artistry into a considered, sensory experience. Every client receives the full attention of our master craftsmen.
             </p>
             <Link
               href="/booking"
-              className="inline-block mt-6 text-[9px] uppercase tracking-[0.3em] text-[#C5A059] border-b border-[#C5A059]/40 pb-1 hover:text-[#FDFBF7] hover:border-[#FDFBF7]/40 transition-all"
+              className="inline-block mt-6 text-[9px] uppercase tracking-[0.3em] text-accent border-b border-accent pb-1 hover:text-primary hover:border-primary transition-all"
             >
               Reserve a Session →
             </Link>
@@ -78,49 +78,49 @@ export default function ServicesSection({ services: propServices }: ServicesSect
         </div>
 
         {/* Services grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#141414]">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-dark-surface">
           {displayServices.map((s) => (
-            <div key={s.id} className="group bg-[#080808] hover:bg-[#0C0C0C] transition-colors duration-300 p-8 flex flex-col">
+            <div key={s.id} className="group bg-dark hover:bg-dark-surface transition-colors duration-300 p-8 flex flex-col">
 
               {/* Top row */}
               <div className="flex items-start justify-between mb-6">
-                <span className="text-[8px] font-mono text-[#404040]">{s.id}</span>
-                <span className="text-[7px] uppercase tracking-[0.25em] text-[#C5A059] border border-[#C5A059]/25 px-2 py-0.5">
+                <span className="text-[8px] font-mono text-muted">{s.id}</span>
+                <span className="text-[7px] uppercase tracking-[0.25em] text-accent border border-accent px-2 py-0.5">
                   {s.tag}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="text-2xl font-serif text-[#FDFBF7] group-hover:text-[#C5A059] transition-colors duration-300 mb-3 leading-tight">
+              <h3 className="text-2xl font-serif text-primary group-hover:text-accent transition-colors duration-300 mb-3 leading-tight">
                 {s.title}
               </h3>
 
               {/* Description */}
-              <p className="text-xs text-[#8A8070] leading-relaxed mb-6 flex-1">
+              <p className="text-xs text-muted leading-relaxed mb-6 flex-1">
                 {s.description}
               </p>
 
               {/* Price / Duration strip */}
-              <div className="flex items-center justify-between border-t border-[#141414] pt-4 mt-auto">
-                <span className="text-sm text-[#C5A059] tabular-nums">{s.price}</span>
-                <span className="text-[9px] uppercase tracking-widest text-[#5A5248]">{s.duration}</span>
+              <div className="flex items-center justify-between border-t border-surface pt-4 mt-auto">
+                <span className="text-sm text-accent tabular-nums">{s.price}</span>
+                <span className="text-[9px] uppercase tracking-widest text-muted">{s.duration}</span>
               </div>
             </div>
           ))}
         </div>
 
         {/* CTA footer */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-[#141414] pt-10 text-center sm:text-left">
-          <p className="text-xs text-[#8A8070] max-w-sm leading-relaxed mx-auto sm:mx-0">
+        <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-surface pt-10 text-center sm:text-left">
+          <p className="text-xs text-muted max-w-sm leading-relaxed mx-auto sm:mx-0">
             Can&apos;t find your style? We accommodate bespoke requests. Consult our team for a custom quote.
           </p>
           <div className="flex gap-6 justify-center sm:justify-end">
             <Link href="/contact"
-              className="text-[9px] uppercase tracking-[0.3em] text-[#8A8070] border-b border-[#333]/60 pb-1 hover:text-[#C5A059] hover:border-[#C5A059]/40 transition-all">
+              className="text-[9px] uppercase tracking-[0.3em] text-muted border-b border-surface pb-1 hover:text-accent hover:border-accent transition-all">
               Request Custom
             </Link>
             <Link href="/booking"
-              className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] border-b border-[#C5A059]/40 pb-1 hover:text-[#FDFBF7] transition-all">
+              className="text-[9px] uppercase tracking-[0.3em] text-accent border-b border-accent pb-1 hover:text-primary transition-all">
               Book Now →
             </Link>
           </div>

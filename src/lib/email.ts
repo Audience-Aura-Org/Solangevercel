@@ -16,6 +16,19 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+// Centralized color tokens for email templates — makes theme updates easier
+const EMAIL_COLORS = {
+    text: '#080808',
+    accent: '#C5A059',
+    muted: '#8A8070',
+    white: '#ffffff',
+    border: '#eeeeee',
+    highlight: '#fdfbf7',
+    secondaryText: '#404040',
+    smallText: '#5A5248',
+    reminderBg: '#fff9f0',
+};
+
 export async function sendEmail({ to, subject, html, text }: { to: string; subject: string; html: string; text?: string }) {
     if (!smtpUser || !smtpPass) {
         throw new Error('SMTP credentials not set (SMTP_USER / SMTP_PASS)');
@@ -37,11 +50,11 @@ export async function sendEmail({ to, subject, html, text }: { to: string; subje
 // Shared header/footer for consistent branding in emails
 function renderHeader() {
     return `
-        <table role="presentation" width="100%" style="max-width:600px;margin:auto;border-collapse:collapse;font-family: serif;color:#080808">
+        <table role="presentation" width="100%" style="max-width:600px;margin:auto;border-collapse:collapse;font-family: serif;color:${EMAIL_COLORS.text}">
             <tr>
                 <td style="padding:24px 0;text-align:center">
-                    <h2 style="margin:0;color:#C5A059;letter-spacing:0.2em">SOLANGE</h2>
-                    <p style="margin:6px 0 0 0;font-size:11px;text-transform:uppercase;color:#8A8070;letter-spacing:0.2em">La Maison de Beauté</p>
+                    <h2 style="margin:0;color:${EMAIL_COLORS.accent};letter-spacing:0.2em">SOLANGE</h2>
+                    <p style="margin:6px 0 0 0;font-size:11px;text-transform:uppercase;color:${EMAIL_COLORS.muted};letter-spacing:0.2em">La Maison de Beauté</p>
                 </td>
             </tr>
             <tr><td><div style="height:8px"></div></td></tr>
@@ -51,10 +64,10 @@ function renderHeader() {
 
 function renderFooter() {
     return `
-        <table role="presentation" width="100%" style="max-width:600px;margin:auto;border-collapse:collapse;font-family: serif;color:#080808">
-            <tr><td style="padding:20px 0 6px 0;border-top:1px solid #eee"></td></tr>
+        <table role="presentation" width="100%" style="max-width:600px;margin:auto;border-collapse:collapse;font-family: serif;color:${EMAIL_COLORS.text}">
+            <tr><td style="padding:20px 0 6px 0;border-top:1px solid ${EMAIL_COLORS.border}"></td></tr>
             <tr>
-                <td style="text-align:center;font-size:11px;color:#8A8070;padding:6px 0">6495 NEW HAMPSHIRE AVE, HYATTSVILLE, MD<br/>+1 301 454 9435 • Experience@solange.hair</td>
+                <td style="text-align:center;font-size:11px;color:${EMAIL_COLORS.muted};padding:6px 0">6495 NEW HAMPSHIRE AVE, HYATTSVILLE, MD<br/>+1 301 454 9435 • Experience@solange.hair</td>
             </tr>
         </table>
     `;
@@ -67,11 +80,11 @@ export function getBookingConfirmationHtml(booking: any) {
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <style>
-                        body { background: #fff; margin: 0; padding: 0; }
-                        .container { max-width:600px; margin:auto; font-family: serif; color:#080808; padding:20px; }
-                        .card { background:#fff; border:1px solid #eee; padding:20px; }
-                        .muted { color:#8A8070; font-size:11px; text-transform:uppercase; letter-spacing:0.15em; }
-                        .accent { color:#C5A059; }
+                        body { background: ${EMAIL_COLORS.white}; margin: 0; padding: 0; }
+                        .container { max-width:600px; margin:auto; font-family: serif; color:${EMAIL_COLORS.text}; padding:20px; }
+                        .card { background:${EMAIL_COLORS.white}; border:1px solid ${EMAIL_COLORS.border}; padding:20px; }
+                        .muted { color:${EMAIL_COLORS.muted}; font-size:11px; text-transform:uppercase; letter-spacing:0.15em; }
+                        .accent { color:${EMAIL_COLORS.accent}; }
                         @media (max-width:480px){ .container{padding:12px} .card{padding:12px} }
                     </style>
                 </head>
@@ -82,17 +95,17 @@ export function getBookingConfirmationHtml(booking: any) {
                             <h2 style="margin-top:0" class="accent">Reservation Secured.</h2>
                             <p>Dear ${booking.clientName},</p>
                             <p>Your appointment has been entered into our ledger. We look forward to welcoming you.</p>
-                            <div style="background:#fdfbf7;padding:16px;border:1px solid #eee;margin:18px 0">
+                            <div style="background:${EMAIL_COLORS.highlight};padding:16px;border:1px solid ${EMAIL_COLORS.border};margin:18px 0">
                                 <p class="muted" style="margin:0">SERVICE</p>
                                 <p style="margin:6px 0 12px 0;font-size:16px">${booking.service}</p>
                                 <p class="muted" style="margin:0">DATE &amp; TIME</p>
                                 <p style="margin:6px 0 12px 0;font-size:16px">${new Date(booking.date).toLocaleDateString()} at ${booking.time}</p>
                                 <p class="muted" style="margin:0">CONFIRMATION NO.</p>
-                                <p style="margin:6px 0 12px 0;font-family:monospace;color:#C5A059">${booking.confirmationNumber}</p>
+                                <p style="margin:6px 0 12px 0;font-family:monospace;color:${EMAIL_COLORS.accent}">${booking.confirmationNumber}</p>
                                 <p class="muted" style="margin:0">HAIR COLOR REQUEST</p>
-                                <p style="margin:6px 0 0 0;color:#404040">${booking.hairColor || 'Natural / No selection'}</p>
+                                <p style="margin:6px 0 0 0;color:${EMAIL_COLORS.secondaryText}">${booking.hairColor || 'Natural / No selection'}</p>
                             </div>
-                            <p style="font-size:12px;color:#5A5248;line-height:1.6">By appointment only. $30 deposit required to secure session (charged). Any complaints must be reported within 3 days. Please arrive with hair pre-washed or booked for treatment.</p>
+                            <p style="font-size:12px;color:${EMAIL_COLORS.smallText};line-height:1.6">By appointment only. $30 deposit required to secure session (charged). Any complaints must be reported within 3 days. Please arrive with hair pre-washed or booked for treatment.</p>
                         </div>
                         ${renderFooter()}
                     </div>
@@ -112,11 +125,11 @@ export function getReminderHtml(booking: any, timeRemaining: string) {
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <style>
-                        body{margin:0;padding:0;font-family:serif;color:#080808}
+                        body{margin:0;padding:0;font-family:serif;color:${EMAIL_COLORS.text}}
                         .container{max-width:600px;margin:auto;padding:20px}
-                        .card{background:#fff;border:1px solid #eee;padding:18px}
-                        .muted{color:#8A8070;font-size:11px;text-transform:uppercase;letter-spacing:0.12em}
-                        .accent{color:#C5A059}
+                        .card{background:${EMAIL_COLORS.white};border:1px solid ${EMAIL_COLORS.border};padding:18px}
+                        .muted{color:${EMAIL_COLORS.muted};font-size:11px;text-transform:uppercase;letter-spacing:0.12em}
+                        .accent{color:${EMAIL_COLORS.accent}}
                         @media (max-width:480px){.container{padding:12px}.card{padding:12px}}
                     </style>
                 </head>
@@ -127,7 +140,7 @@ export function getReminderHtml(booking: any, timeRemaining: string) {
                             <h2 class="accent" style="margin-top:0">See you in ${timeRemaining}.</h2>
                             <p>Your session for <strong>${booking.service}</strong> is approaching.</p>
                             <p>We are preparing the salon for your arrival at <strong>${booking.time}</strong> today.</p>
-                            <div style="background:#fff9f0;padding:12px;margin-top:12px;border-radius:4px">If you need to reschedule, please contact us immediately.</div>
+                            <div style="background:${EMAIL_COLORS.reminderBg};padding:12px;margin-top:12px;border-radius:4px">If you need to reschedule, please contact us immediately.</div>
                         </div>
                         ${renderFooter()}
                     </div>

@@ -132,7 +132,7 @@ export default function HeroVideo({
     <section className="hero-section relative w-full min-h-[100svh] pt-32 pb-16 px-6 lg:px-12 flex items-center justify-center overflow-hidden">
 
       {/* ── Ambient Background Video ── */}
-      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0">
         <video
           ref={(el) => {
             bgVideoRef.current = el;
@@ -154,7 +154,7 @@ export default function HeroVideo({
           onCanPlay={() => playVideo(bgVideoRef.current)}
           onLoadedData={() => playVideo(bgVideoRef.current)}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/90 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-dark-gradient backdrop-blur-[2px] pointer-events-none" style={{opacity: 0.32}} />
       </div>
 
       <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-center justify-between gap-8 md:gap-16 z-20">
@@ -165,7 +165,7 @@ export default function HeroVideo({
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="hero-video-container relative rounded-2xl overflow-hidden border border-[#222] shadow-2xl bg-[#0A0A0A]">
+          <div className="hero-video-container relative rounded-2xl overflow-hidden border border-surface shadow-2xl bg-dark">
 
             {videoList.map((video, idx) => (
               <video
@@ -198,15 +198,15 @@ export default function HeroVideo({
             {/* Slider Controls */}
             {videoList.length > 1 && (
               <div className="absolute inset-x-0 bottom-6 z-20 flex justify-center items-center gap-6">
-                <button onClick={handlePrev} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all" aria-label="Previous Video">&#8592;</button>
+                    <button onClick={handlePrev} className="w-10 h-10 rounded-full bg-dark/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-dark/60 transition-all" aria-label="Previous Video">&#8592;</button>
                 <div className="flex gap-2">
                   {videoList.map((_, idx) => (
                     <button key={idx} onClick={() => setCurrentVideoIndex(idx)} aria-label={`Video ${idx + 1}`}
-                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${idx === currentVideoIndex ? 'bg-[#C5A059] scale-125' : 'bg-white/30'}`}
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${idx === currentVideoIndex ? 'bg-primary scale-125' : 'bg-white/30'}`}
                     />
                   ))}
                 </div>
-                <button onClick={handleNext} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all" aria-label="Next Video">&#8594;</button>
+                <button onClick={handleNext} className="w-10 h-10 rounded-full bg-dark/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-dark/60 transition-all" aria-label="Next Video">&#8594;</button>
               </div>
             )}
           </div>
@@ -216,21 +216,21 @@ export default function HeroVideo({
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left mt-4 md:mt-0">
           <div className="flex flex-col mb-8 gap-3 items-center md:items-start">
             <span className="text-[10px] text-gray-400 tracking-[0.4em] uppercase font-medium">La Maison de Beauté</span>
-            <span className="text-[9px] text-[#C5A059] tracking-[0.3em] uppercase font-light border-l border-[#C5A059] pl-3">DMV Braider • Home services available!</span>
+            <span className="text-[9px] text-accent tracking-[0.3em] uppercase font-light border-l border-accent pl-3">DMV Braider • Home services available!</span>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-serif mb-8 text-[#FDFBF7] leading-[1.05] tracking-tight">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-serif mb-8 text-primary leading-[1.05] tracking-tight">
             {title.split(' ').map((word, i) => {
               const w = word.replace(/[^a-zA-Z]/g, '').toLowerCase();
               return (w === 'hair' || w === 'braiding')
-                ? <span key={i} className="italic font-light text-[#C5A059] pr-3">{word} </span>
+                ? <span key={i} className="italic font-light text-accent pr-3">{word} </span>
                 : <span key={i}>{word} </span>;
             })}
           </h1>
 
           <p className="text-sm md:text-base text-gray-400 mb-14 font-light max-w-md mx-auto md:mx-0 tracking-wide leading-relaxed">{subtitle}</p>
 
-          <Link href={ctaLink} className="inline-block text-[11px] uppercase tracking-[0.25em] font-medium text-[#C5A059] border border-[#C5A059]/50 hover:border-[#C5A059] hover:bg-[#C5A059]/10 px-8 py-4 transition-all duration-300">
+          <Link href={ctaLink} className="inline-block text-[11px] uppercase tracking-[0.25em] font-medium text-accent border border-accent/50 hover:border-accent hover:bg-primary/10 px-8 py-4 transition-all duration-300">
             {ctaText}
           </Link>
         </div>

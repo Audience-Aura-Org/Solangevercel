@@ -194,29 +194,29 @@ export default function AdminSettingsPage() {
 
     // ─── Helpers ────────────────────────────────────────────────────────
     const saveLabel = status === 'saving' ? 'Saving...' : status === 'saved' ? '✓ Saved to Database' : status === 'error' ? errMsg : 'Save Changes';
-    const saveCls = status === 'saved' ? 'text-emerald-400 border-emerald-400/40' : status === 'error' ? 'text-red-500 border-red-500/40' : 'text-[#C5A059] border-[#C5A059]/40 hover:text-[#FDFBF7] hover:border-[#FDFBF7]/40';
+    const saveCls = status === 'saved' ? 'text-emerald-400 border-emerald-400/40' : status === 'error' ? 'text-red-500 border-red-500/40' : 'text-accent border-accent hover:text-primary hover:border-primary';
 
     if (status === 'loading') return (
-        <div className="py-20 text-center text-[9px] uppercase tracking-widest text-[#404040] animate-pulse">Loading configuration...</div>
+        <div className="py-20 text-center text-[9px] uppercase tracking-widest text-muted animate-pulse">Loading configuration...</div>
     );
 
     const Field = ({ label, value, onChange, type = 'text', multi = false }: { label: string; value: string; onChange: (v: string) => void; type?: string; multi?: boolean }) => (
-        <div className="flex flex-col sm:flex-row sm:items-start gap-4 py-4 border-b border-[#0E0E0E] last:border-0">
-            <span className="text-[8px] uppercase tracking-[0.3em] text-[#404040] w-32 shrink-0 pt-1">{label}</span>
+        <div className="flex flex-col sm:flex-row sm:items-start gap-4 py-4 border-b border-surface last:border-0">
+            <span className="text-[8px] uppercase tracking-[0.3em] text-muted w-32 shrink-0 pt-1">{label}</span>
             {multi ? (
                 <textarea value={value} onChange={e => onChange(e.target.value)} rows={2}
-                    className="flex-1 bg-transparent border-b border-[#222] py-1 text-xs text-[#FDFBF7] focus:border-[#C5A059] outline-none resize-none transition-colors" />
+                    className="flex-1 bg-transparent border-b border-surface py-1 text-xs text-primary focus:border-accent outline-none resize-none transition-colors" />
             ) : (
                 <input type={type} value={value} onChange={e => onChange(e.target.value)}
-                    className="flex-1 bg-transparent border-b border-[#222] py-1 text-xs text-[#FDFBF7] focus:border-[#C5A059] outline-none transition-colors" />
+                    className="flex-1 bg-transparent border-b border-surface py-1 text-xs text-primary focus:border-accent outline-none transition-colors" />
             )}
         </div>
     );
 
     const Section = ({ label, children }: { label: string; children: React.ReactNode }) => (
-        <div className="border border-[#141414] bg-[#060606]">
-            <div className="px-6 py-4 border-b border-[#141414]">
-                <span className="text-[8px] uppercase tracking-[0.4em] text-[#404040]">{label}</span>
+        <div className="border border-surface bg-dark">
+            <div className="px-6 py-4 border-b border-surface">
+                <span className="text-[8px] uppercase tracking-[0.4em] text-muted">{label}</span>
             </div>
             <div className="px-6">{children}</div>
         </div>
@@ -244,7 +244,7 @@ export default function AdminSettingsPage() {
             </Section>
 
             {/* ─── Media Library ─── */}
-            <div className="border border-[#141414] bg-[#060606]">
+            <div className="border border-surface bg-dark">
                 <div className="px-6 py-4 border-b border-[#141414] flex items-center justify-between">
                     <span className="text-[8px] uppercase tracking-[0.4em] text-[#404040]">Media Library</span>
                     <button onClick={() => setAddingMedia(!addingMedia)}
@@ -255,7 +255,7 @@ export default function AdminSettingsPage() {
 
                 {/* Add form */}
                 {addingMedia && (
-                    <div className="px-6 py-4 bg-[#070707] border-b border-[#141414] space-y-4">
+                    <div className="px-6 py-4 bg-dark-surface border-b border-surface space-y-4">
                         <div className="grid sm:grid-cols-3 gap-4">
                             <div>
                                 <label className="text-[8px] uppercase tracking-[0.2em] text-[#404040] block mb-1">Label *</label>
@@ -272,15 +272,15 @@ export default function AdminSettingsPage() {
                             <div className="flex gap-4">
                                 {(['video', 'image'] as const).map(t => (
                                     <label key={t} onClick={() => setNewType(t)} className="flex items-center gap-2 cursor-pointer">
-                                        <span className={`w-3 h-3 border flex items-center justify-center transition ${newType === t ? 'border-[#C5A059] bg-[#C5A059]/20' : 'border-[#333]'}`}>
-                                            {newType === t && <span className="text-[#C5A059] text-[6px]">✓</span>}
+                                        <span className={`w-3 h-3 border flex items-center justify-center transition ${newType === t ? 'border-accent bg-primary/10' : 'border-surface'}`}>
+                                            {newType === t && <span className="text-accent text-[6px]">✓</span>}
                                         </span>
-                                        <span className="text-[8px] uppercase tracking-widest text-[#404040]">{t}</span>
+                                        <span className="text-[8px] uppercase tracking-widest text-muted">{t}</span>
                                     </label>
                                 ))}
                             </div>
-                            <button onClick={addMedia} className="text-[8px] uppercase tracking-widest text-[#C5A059] border-b border-[#C5A059]/30 pb-0.5 hover:text-[#FDFBF7] transition-colors ml-auto">Add</button>
-                            <button onClick={() => setAddingMedia(false)} className="text-[8px] uppercase tracking-widest text-[#404040]">Cancel</button>
+                            <button onClick={addMedia} className="text-[8px] uppercase tracking-widest text-accent border-b border-accent pb-0.5 hover:text-primary transition-colors ml-auto">Add</button>
+                            <button onClick={() => setAddingMedia(false)} className="text-[8px] uppercase tracking-widest text-muted">Cancel</button>
                         </div>
                     </div>
                 )}
@@ -288,22 +288,22 @@ export default function AdminSettingsPage() {
                 {/* Media rows */}
                 <div className="divide-y divide-[#0E0E0E]">
                     {s.media.map(m => (
-                        <div key={m.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-6 py-4 group hover:bg-[#080808] transition-colors">
+                        <div key={m.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-6 py-4 group hover:bg-dark-surface transition-colors">
 
                             {/* Type badge */}
-                            <span className={`text-[7px] uppercase tracking-[0.2em] px-2 py-1 border flex-shrink-0 ${m.type === 'video' ? 'text-[#C5A059] border-[#C5A059]/20' : 'text-blue-400 border-blue-400/20'}`}>
+                            <span className={`text-[7px] uppercase tracking-[0.2em] px-2 py-1 border flex-shrink-0 ${m.type === 'video' ? 'text-accent border-accent' : 'text-blue-400 border-blue-400/20'}`}>
                                 {m.type}
                             </span>
 
                             {/* Label */}
-                            <span className="text-[9px] uppercase tracking-widest text-[#505050] w-36 shrink-0">{m.label}</span>
+                            <span className="text-[9px] uppercase tracking-widest text-muted w-36 shrink-0">{m.label}</span>
 
                             {/* URL input */}
                             <input
                                 value={m.url}
                                 onChange={e => updateMedia(m.id, e.target.value)}
                                 placeholder="Paste URL or upload below..."
-                                className="flex-1 bg-transparent border-b border-[#1A1A1A] hover:border-[#333] focus:border-[#C5A059] py-1 text-[10px] text-[#404040] focus:text-[#FDFBF7] outline-none transition-colors font-mono min-w-0"
+                                className="flex-1 bg-transparent border-b border-surface hover:border-surface focus:border-accent py-1 text-[10px] text-muted focus:text-primary outline-none transition-colors font-mono min-w-0"
                             />
 
                             {/* Hidden file input */}
@@ -319,7 +319,7 @@ export default function AdminSettingsPage() {
                             <button
                                 onClick={() => fileRefs.current[m.id]?.click()}
                                 disabled={uploading === m.id}
-                                className="text-[7px] uppercase tracking-widest text-[#303030] hover:text-[#C5A059] border border-[#222] hover:border-[#C5A059]/30 px-2 py-1 transition-all flex-shrink-0 disabled:animate-pulse"
+                                className="text-[7px] uppercase tracking-widest text-muted hover:text-accent border border-surface hover:border-accent px-2 py-1 transition-all flex-shrink-0 disabled:animate-pulse"
                             >
                                 {uploading === m.id ? 'Uploading...' : '↑ Upload'}
                             </button>
@@ -327,12 +327,12 @@ export default function AdminSettingsPage() {
                             {/* Preview */}
                             {m.url && (
                                 <a href={m.url} target="_blank" rel="noopener noreferrer"
-                                    className="text-[7px] text-[#303030] hover:text-[#C5A059] transition-colors flex-shrink-0">↗</a>
+                                    className="text-[7px] text-muted hover:text-accent transition-colors flex-shrink-0">↗</a>
                             )}
 
                             {/* Remove */}
                             <button onClick={() => removeMedia(m.id)}
-                                className="text-[7px] uppercase tracking-widest text-[#303030] hover:text-red-500/80 transition-colors opacity-0 group-hover:opacity-100 flex-shrink-0">
+                                className="text-[7px] uppercase tracking-widest text-muted hover:text-red-500/80 transition-colors opacity-0 group-hover:opacity-100 flex-shrink-0">
                                 ✕
                             </button>
                         </div>

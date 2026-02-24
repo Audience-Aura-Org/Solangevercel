@@ -13,15 +13,15 @@ const GALLERY_IMAGES = [
 
 export default function GallerySection() {
     return (
-        <section className="bg-[#050505] py-32 lg:py-52 overflow-hidden border-t border-[#141414]">
+        <section className="bg-dark py-32 lg:py-52 overflow-hidden border-t border-surface">
             <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-20">
-                <span className="text-[10px] uppercase tracking-[0.5em] text-[#C5A059] block mb-6">Archive</span>
-                <h2 className="text-4xl md:text-7xl font-serif text-[#FDFBF7]">Editorial <span className="italic font-light text-[#C5A059]">Portfolio</span>.</h2>
+                <span className="text-[10px] uppercase tracking-[0.5em] text-accent block mb-6">Archive</span>
+                <h2 className="text-4xl md:text-7xl font-serif text-primary">Editorial <span className="italic font-light text-accent">Portfolio</span>.</h2>
             </div>
 
             <div className="flex overflow-x-auto gap-8 px-6 lg:px-12 pb-12 no-scrollbar snap-x">
                 {GALLERY_IMAGES.map((img, i) => (
-                    <div key={i} className="flex-none w-[300px] md:w-[450px] aspect-[3/4] relative rounded-2xl overflow-hidden border border-[#222] snap-center group">
+                    <div key={i} className="flex-none w-[300px] md:w-[450px] aspect-[3/4] relative rounded-2xl overflow-hidden border border-surface snap-center group">
                         <Image
                             src={img}
                             alt={`Gallery Image ${i + 1}`}
@@ -32,15 +32,15 @@ export default function GallerySection() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         <div className="absolute bottom-8 left-8 right-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
-                            <span className="text-[10px] text-[#C5A059] uppercase tracking-[0.3em]">Signature Hair Edition</span>
-                            <p className="text-lg font-serif text-white mt-1">La Maison Artistry</p>
+                            <span className="text-[10px] text-accent uppercase tracking-[0.3em]">Signature Hair Edition</span>
+                            <p className="text-lg font-serif text-primary mt-1">La Maison Artistry</p>
                         </div>
                     </div>
                 ))}
             </div>
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 mt-12 flex justify-end">
-                <p className="text-[#333] text-[9px] uppercase tracking-[0.4em]">Scroll to explore archive</p>
+                <p className="text-muted text-[9px] uppercase tracking-[0.4em]">Scroll to explore archive</p>
             </div>
 
             <style jsx global>{`

@@ -17,7 +17,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-16 lg:py-20 px-6 lg:px-12 bg-[#0A0A0A] border-y border-[#1A1A1A]">
+    <section className="py-16 lg:py-20 px-6 lg:px-12 bg-dark-surface border-y border-surface">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
 
         <span className="text-[10px] uppercase tracking-[0.3em] text-primary mb-12 font-medium">The Muses</span>
@@ -25,12 +25,12 @@ export default function TestimonialsSection() {
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 w-full text-center md:text-left">
           {testimonials.map((t, index) => (
             <div key={index} className="flex flex-col items-center md:items-start max-w-md mx-auto">
-              <span className="text-5xl font-serif text-[#1A1A1A] leading-none mb-6">"</span>
-              <p className="text-xl md:text-2xl font-serif text-[#FDFBF7] italic font-light leading-relaxed mb-10 text-center md:text-left">
+              <span className="text-5xl font-serif text-primary leading-none mb-6">"</span>
+              <p className="text-xl md:text-2xl font-serif text-primary italic font-light leading-relaxed mb-10 text-center md:text-left">
                 {t.content}
               </p>
               <div className="flex flex-col items-center md:items-start">
-                <span className="text-xs uppercase tracking-[0.2em] text-[#FDFBF7] font-medium mb-1">{t.name}</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-primary font-medium mb-1">{t.name}</span>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500">{t.role}</span>
               </div>
             </div>

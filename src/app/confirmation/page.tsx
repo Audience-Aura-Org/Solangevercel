@@ -156,7 +156,7 @@ function ConfirmationContent() {
             </div>
 
             <div className="space-y-4">
-              {booking && <button onClick={downloadTicket} className="w-full bg-[#C5A059] text-black py-3 text-[9px] uppercase tracking-[0.3em] font-semibold hover:bg-[#DFBE82] transition-colors">Download Ticket (PDF)</button>}
+                {booking && <button onClick={downloadTicket} className="w-full bg-primary text-black py-3 text-[9px] uppercase tracking-[0.3em] font-semibold hover:bg-accent transition-colors">Download Ticket (PDF)</button>}
               <Link href="/" className="block"><Button className="w-full" size="lg">← Return Home</Button></Link>
               <Link href="/admin" className="block"><Button variant="outline" className="w-full" size="lg">📊 View Booking Status</Button></Link>
             </div>

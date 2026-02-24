@@ -453,17 +453,17 @@ export default function BookingPage() {
                         <button
                           key={a._id}
                           onClick={() => toggleAddon(a)}
-                          className={`w-full group border p-5 flex items-center justify-between transition-all ${isSelected ? 'border-[#C5A059] bg-[#C5A059]/5' : 'border-[#141414] bg-[#060606] hover:border-[#333]'}`}
+                          className={`w-full group border p-5 flex items-center justify-between transition-all ${isSelected ? 'border-accent bg-accent/10' : 'border-surface bg-dark hover:border-surface'}`}
                         >
                           <div className="text-left flex-1">
-                            <p className={`text-sm font-serif ${isSelected ? 'text-[#C5A059]' : 'text-[#FDFBF7]'}`}>{a.name}</p>
-                            <p className="text-[10px] text-[#8A8070] leading-relaxed mt-1">{a.description}</p>
-                            <p className="text-[8px] uppercase tracking-widest text-[#5A5248] mt-2">+{a.duration} mins duration</p>
+                            <p className={`text-sm font-serif ${isSelected ? 'text-accent' : 'text-primary'}`}>{a.name}</p>
+                            <p className="text-[10px] text-muted leading-relaxed mt-1">{a.description}</p>
+                            <p className="text-[8px] uppercase tracking-widest text-faint mt-2">+{a.duration} mins duration</p>
                           </div>
                           <div className="text-right ml-6">
-                            <span className={`text-sm font-serif ${isSelected ? 'text-[#C5A059]' : 'text-[#8A8070]'}`}>+${a.price}</span>
-                            <div className={`w-4 h-4 border mx-auto mt-3 flex items-center justify-center transition-colors ${isSelected ? 'border-[#C5A059] bg-[#C5A059]' : 'border-[#222]'}`}>
-                              {isSelected && <span className="text-[8px] text-[#0A0A0A]">✓</span>}
+                            <span className={`text-sm font-serif ${isSelected ? 'text-accent' : 'text-muted'}`}>+${a.price}</span>
+                            <div className={`w-4 h-4 border mx-auto mt-3 flex items-center justify-center transition-colors ${isSelected ? 'border-accent bg-accent' : 'border-surface'}`}>
+                              {isSelected && <span className="text-[8px] text-dark">✓</span>}
                             </div>
                           </div>
                         </button>
@@ -471,7 +471,7 @@ export default function BookingPage() {
                     })
                   ) : (
                     <div className="text-center py-10 border border-dashed border-[#141414]">
-                      <p className="text-[10px] uppercase tracking-widest text-[#404040]">No extras available for this selection</p>
+                      <p className="text-[10px] uppercase tracking-widest text-muted">No extras available for this selection</p>
                     </div>
                   )}
 

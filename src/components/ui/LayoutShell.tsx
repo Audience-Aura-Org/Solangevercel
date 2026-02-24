@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import Navigation from '@/components/ui/Navigation';
@@ -29,7 +31,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
 
     return (
         <>
-            {!isAdmin && <Navigation />}
+            <Navigation />
             <main
                 className={isAdmin ? '' : 'min-h-screen'}
                 style={{

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function CTASection() {
   return (
-    <section className="relative py-20 lg:py-24 px-6 lg:px-12 bg-[#0A0A0A] overflow-hidden flex flex-col items-center justify-center min-h-[50vh]">
+    <section className="relative py-20 lg:py-24 px-6 lg:px-12 bg-dark overflow-hidden flex flex-col items-center justify-center min-h-[50vh]">
 
       {/* Background Graphic */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-5">
@@ -17,7 +17,7 @@ export default function CTASection() {
       <div className="max-w-3xl mx-auto text-center relative z-10 w-full">
         <span className="text-[10px] uppercase tracking-[0.4em] text-primary block mb-8">The Invitation</span>
 
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#FDFBF7] mb-10 leading-[1.1] tracking-tight">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-primary mb-10 leading-[1.1] tracking-tight">
           Reserve Your <br />
           <span className="italic font-light text-primary">Appointment</span>
         </h2>
