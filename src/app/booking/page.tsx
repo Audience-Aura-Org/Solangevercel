@@ -676,7 +676,7 @@ export default function BookingPage() {
 
             {/* ── Step 5: Confirmation ── */}
             {step === 'confirmation' && (
-              <div className="border border-[#C5A059]/20 bg-[#060606] p-12 lg:p-16 text-center">
+              <div className="w-full border border-[#C5A059]/20 bg-[#060606] p-12 lg:p-16 text-center">
                 <div className="w-16 h-16 border border-[#C5A059]/40 flex items-center justify-center mx-auto mb-8">
                   <span className="text-2xl font-serif text-[#C5A059]">S.</span>
                 </div>
