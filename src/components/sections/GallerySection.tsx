@@ -26,7 +26,7 @@ export default function GallerySection() {
                             src={img}
                             alt={`Gallery Image ${i + 1}`}
                             fill
-                            className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100 grayscale group-hover:grayscale-0"
+                            className="object-cover transition-transform duration-1000 group-hover:scale-110"
                             sizes="(max-width: 768px) 300px, 450px"
                             priority={i < 2}
                         />
