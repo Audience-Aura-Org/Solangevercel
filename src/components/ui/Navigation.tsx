@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import MobileMenuPortal from '@/components/ui/MobileMenuPortal';
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings';
 
 export default function Navigation() {
   const pathname = usePathname();
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<{ role: string; email: string } | null>(null);
@@ -19,7 +19,6 @@ export default function Navigation() {
     // Get theme from DOM attribute set by ThemeProvider
     const themeAttr = document.documentElement.getAttribute('data-theme') || 'dark';
     setTheme(themeAttr as 'light' | 'dark');
-    setMounted(true);
   }, []);
 
   const toggleTheme = () => {
@@ -46,18 +45,7 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open so the menu fully overlays content
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [mobileMenuOpen]);
+  // Body scroll is handled by MobileMenuPortal via a `.no-scroll` class.
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
@@ -74,7 +62,7 @@ export default function Navigation() {
   return (
     <>
       {!isAdmin && (
-        <nav className={`fixed top-0 left-0 w-full z-[70] transition-all duration-700 ${scrolled ? (theme === 'light' ? 'bg-white/90 backdrop-blur-xl border-b border-black/5 py-4' : 'bg-dark-surface/90 backdrop-blur-xl border-b border-white/5 py-4') : 'bg-transparent py-8'}`}>
+        <nav className={`fixed top-0 left-0 w-full z-[99999] transition-all duration-700 ${scrolled ? (theme === 'light' ? 'bg-white/90 backdrop-blur-xl border-b border-black/5 py-4' : 'bg-dark-surface/90 backdrop-blur-xl border-b border-white/5 py-4') : 'bg-transparent py-8'}`}>
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="flex justify-between items-center">
 
@@ -210,7 +198,7 @@ export default function Navigation() {
               <div className="flex justify-end w-1/3 md:hidden">
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className={`flex flex-col justify-center gap-[5px] w-6 h-6 ${mobileMenuOpen ? 'z-[70]' : 'z-[50]'} relative`}
+                  className={`flex flex-col justify-center gap-[5px] w-6 h-6 ${mobileMenuOpen ? 'z-[99999]' : 'z-[99998]'} relative`}
                   aria-label="Toggle mobile menu"
                   aria-expanded={mobileMenuOpen}
                 >
@@ -222,13 +210,15 @@ export default function Navigation() {
           </div>
 
           {/* Fullscreen Mobile Menu */}
-          <div className={`fixed inset-0 z-[80] flex flex-col justify-start items-center transition-all duration-700 overflow-y-auto pt-20 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} ${theme === 'light' ? 'bg-white' : 'bg-dark-surface'}`}>
+          {mobileMenuOpen && (
+            <MobileMenuPortal>
+              <div className={`fixed inset-0 z-[99998] flex flex-col justify-start items-center transition-all duration-700 overflow-y-auto pt-20 ${theme === 'light' ? 'bg-white' : 'bg-dark-surface'}`}>
             {/* Close button inside overlay so user can always dismiss the menu */}
-            <button
-              aria-label="Close mobile menu"
-              onClick={() => setMobileMenuOpen(false)}
-              className={`absolute top-6 right-6 p-3 rounded-md ${theme === 'light' ? 'text-black bg-white/0' : 'text-white bg-transparent'} z-[70]`}
-            >
+              <button
+                aria-label="Close mobile menu"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`absolute top-6 right-6 p-3 rounded-md ${theme === 'light' ? 'text-black bg-white/0' : 'text-white bg-transparent'} z-[99999]`}
+              >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
@@ -285,8 +275,20 @@ export default function Navigation() {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg>
                 </a>
               </div>
+
+              {/* Theme Toggle Button in mobile menu */}
+              <button
+                onClick={toggleTheme}
+                className={`mt-8 px-8 py-4 border text-sm tracking-[0.2em] uppercase transition-all transform duration-700 ${mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} ${theme === 'light' ? 'border-black text-black hover:bg-black hover:text-white' : 'border-accent text-accent hover:bg-primary hover:text-dark'}`}
+                aria-label={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+                title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
+              </button>
             </div>
-          </div>
+              </div>
+            </MobileMenuPortal>
+          )}
         </nav>
       )}
 

@@ -144,22 +144,22 @@ export default function AdminCalendarPage() {
             ) : view === 'week' ? (
 
                 /* ─── WEEK GRID VIEW ─── */
-                <div className="border border-[#141414] bg-[#060606] overflow-x-auto">
-                    <div className="min-w-[700px]">
+                <div className="border border-[#141414] bg-[#060606] overflow-x-auto max-h-[calc(100vh-200px)] md:max-h-full">
+                    <div className="min-w-[320px] sm:min-w-[700px]">
 
                         {/* Day Header Row */}
                         <div className="grid grid-cols-8 border-b border-[#141414]">
-                            <div className="border-r border-[#141414] px-3 py-4" />
+                            <div className="border-r border-[#141414] px-2 sm:px-3 py-2 sm:py-4" />
                             {weekDays.map((d, i) => {
                                 const ds = d.toISOString().slice(0, 10);
                                 const isToday = ds === todayStr;
                                 const count = byDate[ds]?.length || 0;
                                 return (
-                                    <div key={i} className={`px-3 py-4 text-center border-r border-[#141414] last:border-0 ${isToday ? 'bg-[#C5A059]/5' : ''}`}>
-                                        <p className={`text-[8px] uppercase tracking-[0.2em] mb-1 ${isToday ? 'text-[#C5A059]' : 'text-[#404040]'}`}>
+                                    <div key={i} className={`px-2 sm:px-3 py-2 sm:py-4 text-center border-r border-[#141414] last:border-0 transition-colors ${isToday ? 'bg-[#C5A059]/25 border-[#C5A059]/40' : ''}`}>
+                                        <p className={`text-[7px] sm:text-[8px] uppercase tracking-[0.2em] mb-1 ${isToday ? 'text-[#FDFBF7]' : 'text-[#404040]'}`}>
                                             {DAY_LABELS[d.getDay()]}
                                         </p>
-                                        <p className={`text-lg font-serif ${isToday ? 'text-[#C5A059]' : 'text-[#FDFBF7]'}`}>
+                                        <p className={`text-sm sm:text-lg font-serif font-bold ${isToday ? 'text-[#FDFBF7]' : 'text-[#FDFBF7]'}`}>
                                             {d.getDate()}
                                         </p>
                                         {count > 0 && (
@@ -172,10 +172,10 @@ export default function AdminCalendarPage() {
 
                         {/* Time Rows */}
                         {HOURS.map(hour => (
-                            <div key={hour} className="grid grid-cols-8 border-b border-[#0E0E0E] last:border-0 min-h-[64px]">
+                            <div key={hour} className="grid grid-cols-8 border-b border-[#0E0E0E] last:border-0 min-h-[48px] sm:min-h-[64px]">
                                 {/* Hour Label */}
-                                <div className="border-r border-[#141414] px-3 py-2 flex items-start">
-                                    <span className="text-[8px] text-[#303030] tabular-nums">
+                                <div className="border-r border-[#141414] px-2 sm:px-3 py-1 sm:py-2 flex items-start">
+                                    <span className="text-[7px] sm:text-[8px] text-[#303030] tabular-nums">
                                         {hour < 12 ? `${hour}am` : hour === 12 ? '12pm' : `${hour - 12}pm`}
                                     </span>
                                 </div>
@@ -190,7 +190,7 @@ export default function AdminCalendarPage() {
                                     });
 
                                     return (
-                                        <div key={di} className={`relative border-r border-[#0E0E0E] last:border-0 px-1.5 py-1.5 space-y-1 ${isToday ? 'bg-[#C5A059]/[0.02]' : ''}`}>
+                                        <div key={di} className={`relative border-r border-[#0E0E0E] last:border-0 px-1 sm:px-1.5 py-1 sm:py-1.5 space-y-1 transition-colors ${isToday ? 'bg-[#C5A059]/15' : ''}`}>
                                             {dayBookings.map(b => (
                                                 <div
                                                     key={b._id}

@@ -37,7 +37,6 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
                 style={{
                     opacity: transitionStage === 'in' ? 1 : 0,
                     transition: 'opacity 150ms ease-in-out',
-                    willChange: 'opacity',
                 }}
             >
                 {displayChildren}

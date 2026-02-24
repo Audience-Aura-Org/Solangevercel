@@ -289,10 +289,13 @@
 /* was: #4b5563 — boosted */
 
 /* ── Page Transitions ────────────────────────────────────────────── */
-/* Ensure page transitions don't cause layout shift */
+/* Use will-change for opacity transitions without creating a new stacking context.
+   `transform: translateZ(0)` promoted the element to its own stacking context which
+   can cause fixed-positioned siblings (like the nav) to be rendered underneath on
+   some mobile browsers. Using `will-change` avoids that while still hinting to the
+   browser about upcoming opacity changes. */
 main {
-  transform: translateZ(0);
-  /* promote to GPU layer */
+  will-change: opacity;
 }
 
 /* ── Hero Section ────────────────────────────────────────────────── */
@@ -397,6 +400,12 @@ html[data-theme="light"] [class*="bg-[#C5A059]"] {
 .border-surface { border-color: var(--glass-border) !important; }
 .hover\:bg-dark:hover { background-color: var(--dark) !important; }
 .hover\:text-accent:hover { color: var(--primary) !important; }
+
+/* Prevent body scrolling when overlays are open (simple, cross-browser) */
+.no-scroll {
+  overflow: hidden !important;
+  touch-action: none !important;
+}
 
 /* Accent/border utilities */
 .border-accent { border-color: var(--primary) !important; }

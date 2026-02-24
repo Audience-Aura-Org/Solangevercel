@@ -63,56 +63,58 @@ export default function AdminClientsPage() {
             />
 
             {/* Table */}
-            <div className="border border-[#141414] bg-[#060606] overflow-x-auto">
-                {loading ? (
-                    <div className="p-12 text-center text-[9px] uppercase tracking-widest text-gray-500 animate-pulse">
-                        Loading registry...
-                    </div>
-                ) : filtered.length === 0 ? (
-                    <div className="p-12 text-center text-[9px] uppercase tracking-widest text-gray-500">
-                        No clients found.
-                    </div>
-                ) : (
-                    <table className="w-full">
-                        <thead>
-                            <tr className="border-b border-[#141414]">
-                                {['Name', 'Email', 'Phone', 'Type', 'Since', ''].map(h => (
-                                    <th key={h} className="px-6 py-4 text-left text-[9px] uppercase tracking-[0.3em] text-gray-400 font-medium">
-                                        {h}
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filtered.map((c, i) => (
-                                <tr
-                                    key={c._id}
-                                    className={`group hover:bg-[#0A0A0A] transition-colors ${i !== filtered.length - 1 ? 'border-b border-[#0E0E0E]' : ''}`}
-                                >
-                                    <td className="px-6 py-4 text-sm font-medium text-[#FDFBF7]">{c.name}</td>
-                                    <td className="px-6 py-4 text-[11px] text-gray-300">{c.email}</td>
-                                    <td className="px-6 py-4 text-[11px] text-[#C5A059] font-mono">{c.phone || '—'}</td>
-                                    <td className="px-6 py-4">
-                                        <span className={`text-[9px] uppercase tracking-widest font-semibold ${c.role === 'admin' ? 'text-[#C5A059]' : 'text-gray-500'}`}>
-                                            {c.role}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-[10px] text-gray-400">
-                                        {new Date(c.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                    </td>
-                                    <td className="px-6 py-4 text-right">
-                                        <button
-                                            onClick={() => deleteClient(c._id)}
-                                            className="text-[9px] uppercase tracking-widest text-red-500/40 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
+            <div className="border border-[#141414] bg-[#060606] overflow-hidden rounded-sm">
+                <div className="overflow-x-auto max-h-[calc(100vh-200px)]">
+                    {loading ? (
+                        <div className="p-12 text-center text-[9px] uppercase tracking-widest text-gray-500 animate-pulse">
+                            Loading registry...
+                        </div>
+                    ) : filtered.length === 0 ? (
+                        <div className="p-12 text-center text-[9px] uppercase tracking-widest text-gray-500">
+                            No clients found.
+                        </div>
+                    ) : (
+                        <table className="w-full min-w-[600px]">
+                            <thead>
+                                <tr className="border-b border-[#141414] bg-[#0A0A0A] sticky top-0">
+                                    {['Name', 'Email', 'Phone', 'Type', 'Since', ''].map(h => (
+                                        <th key={h} className="px-4 sm:px-6 py-3 sm:py-4 text-left text-[7px] sm:text-[9px] uppercase tracking-[0.3em] text-gray-400 font-medium">
+                                            {h}
+                                        </th>
+                                    ))}
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
+                            </thead>
+                            <tbody>
+                                {filtered.map((c, i) => (
+                                    <tr
+                                        key={c._id}
+                                        className={`group hover:bg-[#0A0A0A] transition-colors ${i !== filtered.length - 1 ? 'border-b border-[#0E0E0E]' : ''}`}
+                                    >
+                                        <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium text-[#FDFBF7]">{c.name}</td>
+                                        <td className="px-4 sm:px-6 py-3 sm:py-4 text-[9px] sm:text-[11px] text-gray-300 truncate">{c.email}</td>
+                                        <td className="px-4 sm:px-6 py-3 sm:py-4 text-[9px] sm:text-[11px] text-[#C5A059] font-mono truncate">{c.phone || '—'}</td>
+                                        <td className="px-4 sm:px-6 py-3 sm:py-4">
+                                            <span className={`text-[7px] sm:text-[9px] uppercase tracking-widest font-semibold ${c.role === 'admin' ? 'text-[#C5A059]' : 'text-gray-500'}`}>
+                                                {c.role}
+                                            </span>
+                                        </td>
+                                        <td className="px-4 sm:px-6 py-3 sm:py-4 text-[8px] sm:text-[10px] text-gray-400 whitespace-nowrap">
+                                            {new Date(c.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                        </td>
+                                        <td className="px-4 sm:px-6 py-3 sm:py-4 text-right">
+                                            <button
+                                                onClick={() => deleteClient(c._id)}
+                                                className="text-[7px] sm:text-[9px] uppercase tracking-widest text-red-500/40 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
             </div>
         </div>
     );

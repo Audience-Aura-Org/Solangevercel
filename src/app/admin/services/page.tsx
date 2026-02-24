@@ -48,32 +48,32 @@ function SizeRow({
     onRemove: (si: number, zi: number) => void;
 }) {
     return (
-        <div className="flex flex-wrap items-center gap-6 px-6 py-4 border-b border-[#0E0E0E] last:border-0 group">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-3 sm:px-6 py-3 sm:py-4 border-b border-[#0E0E0E] last:border-0 group text-[10px]">
             <input
                 value={sz.size}
                 onChange={e => onUpdate(si, zi, 'size', e.target.value)}
                 placeholder="Size label (e.g. Small)"
-                className="bg-transparent border-b border-[#222] py-1 text-[10px] text-[#FDFBF7] focus:border-[#C5A059] outline-none w-40 transition-colors"
+                className="flex-1 min-w-0 bg-transparent border-b border-[#222] py-1 text-[10px] text-[#FDFBF7] focus:border-[#C5A059] outline-none transition-colors"
             />
             <label className="flex flex-col gap-1">
-                <span className="text-[8px] uppercase tracking-[0.2em] text-[#303030]">Price ($)</span>
+                <span className="text-[7px] uppercase tracking-[0.2em] text-[#303030]">Price ($)</span>
                 <input
                     type="number" value={sz.price}
                     onChange={e => onUpdate(si, zi, 'price', Number(e.target.value))}
-                    className="w-20 bg-transparent border-b border-[#222] py-1 text-xs text-[#C5A059] focus:border-[#C5A059] outline-none tabular-nums"
+                    className="w-16 bg-transparent border-b border-[#222] py-1 text-xs text-[#C5A059] focus:border-[#C5A059] outline-none tabular-nums"
                 />
             </label>
             <label className="flex flex-col gap-1">
-                <span className="text-[8px] uppercase tracking-[0.2em] text-[#303030]">Duration (min)</span>
+                <span className="text-[7px] uppercase tracking-[0.2em] text-[#303030]">Duration (min)</span>
                 <input
                     type="number" value={sz.duration}
                     onChange={e => onUpdate(si, zi, 'duration', Number(e.target.value))}
-                    className="w-20 bg-transparent border-b border-[#222] py-1 text-xs text-[#606060] focus:border-[#C5A059] outline-none tabular-nums"
+                    className="w-16 bg-transparent border-b border-[#222] py-1 text-xs text-[#606060] focus:border-[#C5A059] outline-none tabular-nums"
                 />
             </label>
             <button
                 onClick={() => onRemove(si, zi)}
-                className="text-[8px] uppercase tracking-widest text-[#303030] hover:text-red-500/80 transition-colors ml-auto opacity-0 group-hover:opacity-100"
+                className="text-[7px] sm:text-[8px] uppercase tracking-widest text-[#303030] hover:text-red-500/80 transition-colors sm:ml-auto opacity-0 group-hover:opacity-100 self-start sm:self-auto"
             >
                 Remove
             </button>
@@ -267,22 +267,22 @@ export default function AdminServicesPage() {
                     <div key={svc.id} className="border border-[#141414] bg-[#060606]">
 
                         {/* Category Header */}
-                        <div className="flex flex-wrap items-center gap-4 px-6 py-4 border-b border-[#141414]">
-                            <span className="text-[9px] font-mono text-[#404040] w-6">0{si + 1}</span>
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 px-3 sm:px-6 py-3 sm:py-4 border-b border-[#141414]">
+                            <span className="text-[8px] sm:text-[9px] font-mono text-[#404040] w-5 shrink-0">0{si + 1}</span>
                             <input
                                 value={svc.name}
                                 onChange={e => updateCat(si, 'name', e.target.value)}
-                                className="flex-1 bg-transparent text-sm font-serif text-[#FDFBF7] focus:outline-none border-b border-transparent focus:border-[#333] py-0.5 transition-colors min-w-[140px]"
+                                className="flex-1 min-w-0 bg-transparent text-xs sm:text-sm font-serif text-[#FDFBF7] focus:outline-none border-b border-transparent focus:border-[#333] py-0.5 transition-colors"
                             />
                             <input
                                 value={svc.description}
                                 onChange={e => updateCat(si, 'description', e.target.value)}
-                                placeholder="Description..."
-                                className="flex-1 bg-transparent text-[10px] text-[#404040] focus:outline-none border-b border-transparent focus:border-[#333] py-0.5 transition-colors min-w-[120px]"
+                                placeholder="Desc..."
+                                className="hidden sm:flex flex-1 min-w-0 bg-transparent text-[10px] text-[#404040] focus:outline-none border-b border-transparent focus:border-[#333] py-0.5 transition-colors"
                             />
                             <button
                                 onClick={() => removeCat(si)}
-                                className="text-[8px] uppercase tracking-widest text-[#303030] hover:text-red-500/80 transition-colors ml-auto"
+                                className="text-[7px] sm:text-[8px] uppercase tracking-widest text-[#303030] hover:text-red-500/80 transition-colors ml-auto shrink-0"
                             >
                                 Delete
                             </button>

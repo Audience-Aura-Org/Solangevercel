@@ -113,7 +113,7 @@ export default function AdminBookingsPage() {
 
             {/* Table Container - Fixed scrolling issue */}
             <div className="relative border border-[#141414] bg-[#060606] rounded-sm overflow-hidden">
-                <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#1A1A1A]">
+                <div className="overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-[#1A1A1A] max-h-[calc(100vh-200px)]">
                     {loading ? (
                         <div className="p-20 text-center text-[9px] uppercase tracking-[0.3em] text-gray-500 animate-pulse font-poppins">
                             Synchronizing archives...
@@ -123,7 +123,7 @@ export default function AdminBookingsPage() {
                             No records found in this sequence.
                         </div>
                     ) : (
-                        <table className="w-full min-w-[1000px] table-fixed">
+                        <table className="w-full min-w-[1000px] table-fixed text-[10px] sm:text-sm">
                             <thead>
                                 <tr className="border-b border-[#141414] bg-[#0A0A0A]">
                                     <th className="w-[120px] px-6 py-5 text-left text-[8px] uppercase tracking-[0.3em] text-gray-500 font-bold">Reference</th>
