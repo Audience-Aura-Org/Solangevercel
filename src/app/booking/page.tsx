@@ -502,16 +502,16 @@ export default function BookingPage() {
                   <p className="text-[9px] uppercase tracking-[0.35em] text-[#8A8070]">Pick a date & time</p>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-6">
+                <div className="grid lg:grid-cols-2 gap-6 w-full max-w-full">
                   {/* Calendar */}
-                  <div className="border border-[#141414] bg-[#060606] p-5">
-                    <div className="grid grid-cols-7 gap-1 text-center mb-3">
+                  <div className="border border-[#141414] bg-[#060606] p-4 sm:p-5 overflow-hidden w-full max-w-full">
+                    <div className="grid grid-cols-7 gap-1 text-center mb-3 w-full">
                       {DAY_LABELS.map(d => (
-                        <div key={d} className="text-[8px] uppercase tracking-widest text-[#C5A059] pb-2 border-b border-[#141414]">{d}</div>
+                        <div key={d} className="text-[8px] uppercase tracking-widest text-[#C5A059] pb-2 border-b border-[#141414] truncate">{d}</div>
                       ))}
                     </div>
                     {/* Offset placeholder for correct starting day */}
-                    <div className="grid grid-cols-7 gap-1">
+                    <div className="grid grid-cols-7 gap-0.5 sm:gap-1 w-full">
                       {Array.from({ length: new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay() }).map((_, i) => (
                         <div key={i} />
                       ))}
