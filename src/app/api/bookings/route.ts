@@ -46,6 +46,9 @@ export async function POST(request: Request) {
         const { sendEmail, getBookingConfirmationHtml, getBookingConfirmationText } = await import('@/lib/email');
         const Notification = (await import('@/models/Notification')).default;
 
+        // calculate envelope from address for debug
+        const envelopeFrom = process.env.FROM_EMAIL || process.env.SMTP_USER || 'info@solangesignaturehair.hair';
+
         // Email to Client (create notification record for delivery status)
         try {
             await sendEmail({
@@ -82,7 +85,7 @@ export async function POST(request: Request) {
                 subject: `New Booking: ${booking.clientName} - ${booking.confirmationNumber}`,
                 text: `New booking from ${booking.clientName} (${booking.clientEmail}) - ${booking.confirmationNumber}\nService: ${booking.service} - ${new Date(booking.date).toLocaleDateString()} ${booking.time}`,
                 fromName: 'New Booking',
-                fromAddress: process.env.FROM_EMAIL || process.env.SMTP_USER || 'info@solangesignaturehair.hair',
+                fromAddress: envelopeFrom,
                 html: `
                     <div style="font-family: serif; color: #1a1a1a; max-width: 600px; margin: auto;">
                         <h1 style="color: #C5A059;">New Reservation</h1>
@@ -121,7 +124,7 @@ export async function POST(request: Request) {
 
 
         return NextResponse.json(
-            { booking, confirmationNumber: booking.confirmationNumber },
+            { booking, confirmationNumber: booking.confirmationNumber, debug: { envelopeFrom } },
             { status: 201 }
         );
     } catch (error: any) {
