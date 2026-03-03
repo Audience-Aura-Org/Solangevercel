@@ -80,6 +80,7 @@ export async function POST(request: Request) {
                 to: adminEmail,
                 subject: `New Booking: ${booking.clientName} - ${booking.confirmationNumber}`,
                 text: `New booking from ${booking.clientName} (${booking.clientEmail}) - ${booking.confirmationNumber}\nService: ${booking.service} - ${new Date(booking.date).toLocaleDateString()} ${booking.time}`,
+                fromName: 'New Booking',
                 html: `
                     <div style="font-family: serif; color: #1a1a1a; max-width: 600px; margin: auto;">
                         <h1 style="color: #C5A059;">New Reservation</h1>

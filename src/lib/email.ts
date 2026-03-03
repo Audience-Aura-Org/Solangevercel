@@ -29,13 +29,13 @@ const EMAIL_COLORS = {
     reminderBg: '#fff9f0',
 };
 
-export async function sendEmail({ to, subject, html, text }: { to: string; subject: string; html: string; text?: string }) {
+export async function sendEmail({ to, subject, html, text, fromName = 'Solange' }: { to: string; subject: string; html: string; text?: string; fromName?: string }) {
     if (!smtpUser || !smtpPass) {
         throw new Error('SMTP credentials not set (SMTP_USER / SMTP_PASS)');
     }
 
     const mailOptions: any = {
-        from: `"Solange" <${smtpUser}>`,
+        from: `"${fromName}" <${smtpUser}>`,
         to,
         subject,
         html,
