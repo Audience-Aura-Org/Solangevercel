@@ -215,7 +215,7 @@ export default function HeroVideo({
         {/* ── Text Content ── */}
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left mt-4 md:mt-0">
           <div className="flex flex-col mb-8 gap-3 items-center md:items-start">
-            <span className="text-[10px] text-gray-400 tracking-[0.4em] uppercase font-medium">La Maison de Beauté</span>
+            <span className="text-[10px] text-gray-200 tracking-[0.4em] uppercase font-medium">Hair & Braiding Salon</span>
             <span className="text-[9px] text-accent tracking-[0.3em] uppercase font-light border-l border-accent pl-3">DMV Braider • Home services available!</span>
           </div>
 
@@ -228,7 +228,7 @@ export default function HeroVideo({
             })}
           </h1>
 
-          <p className="text-sm md:text-base text-gray-400 mb-14 font-light max-w-md mx-auto md:mx-0 tracking-wide leading-relaxed">{subtitle}</p>
+          <p className="text-sm md:text-base text-gray-200 mb-14 font-light max-w-md mx-auto md:mx-0 tracking-wide leading-relaxed">{subtitle}</p>
 
           <Link href={ctaLink} className="inline-block text-[11px] uppercase tracking-[0.25em] font-medium text-accent border border-accent/50 hover:border-accent hover:bg-primary/10 px-8 py-4 transition-all duration-300">
             {ctaText}

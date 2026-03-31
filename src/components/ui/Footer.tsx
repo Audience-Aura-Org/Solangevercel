@@ -30,43 +30,43 @@ export default function Footer() {
               SOLANGE
             </span>
             <span className="text-[8px] uppercase tracking-[0.4em] text-primary mt-1 opacity-70">
-              Signature Hair
+              Professional Hair Braiding
             </span>
           </Link>
-          <p className={`text-sm font-light tracking-wide max-w-sm mx-auto md:mx-0 ${theme === 'light' ? 'text-black/40' : 'text-primary'}`}>
-            La Maison de Beauté. Unparalleled craftsmanship, precision, and luxury.
+          <p className={`text-sm font-light tracking-wide max-w-sm mx-auto md:mx-0 ${theme === 'light' ? 'text-black/60' : 'text-primary opacity-80'}`}>
+            Professional styles, friendly service, and a look you'll love.
           </p>
         </div>
 
-        <div className={`grid grid-cols-1 sm:grid-cols-3 gap-12 text-xs uppercase tracking-[0.2em] w-full md:w-auto text-center md:text-left ${theme === 'light' ? 'text-black/40' : 'text-primary'}`}>
+        <div className={`grid grid-cols-1 sm:grid-cols-3 gap-12 text-xs uppercase tracking-[0.2em] w-full md:w-auto text-center md:text-left ${theme === 'light' ? 'text-black/60' : 'text-primary'}`}>
 
           <div className="flex flex-col gap-4 items-center md:items-start mx-auto md:mx-0">
             <h4 className="text-primary mb-4 font-medium">Menu</h4>
-            <Link href="/services" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary'}`}>Services</Link>
-            <Link href="/about" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary'}`}>La Maison</Link>
-            <Link href="/booking" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary'}`}>Reserve</Link>
+            <Link href="/services" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary opacity-70 hover:opacity-100'}`}>Services</Link>
+            <Link href="/about" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary opacity-70 hover:opacity-100'}`}>About Us</Link>
+            <Link href="/booking" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary opacity-70 hover:opacity-100'}`}>Book Now</Link>
           </div>
 
           <div className="flex flex-col gap-4 items-center md:items-start mx-auto md:mx-0">
             <h4 className="text-primary mb-4 font-medium">Social</h4>
-            <a href={instagram} target="_blank" rel="noopener noreferrer" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary'}`}>
+            <a href={instagram} target="_blank" rel="noopener noreferrer" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary opacity-70 hover:opacity-100'}`}>
               Instagram
             </a>
-            <a href={tiktok} target="_blank" rel="noopener noreferrer" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary'}`}>
+            <a href={tiktok} target="_blank" rel="noopener noreferrer" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary opacity-70 hover:opacity-100'}`}>
               TikTok
             </a>
-            <Link href="/contact" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary'}`}>Contact</Link>
+            <Link href="/contact" className={`transition-colors ${theme === 'light' ? 'hover:text-black text-black/60' : 'hover:text-white text-primary opacity-70 hover:opacity-100'}`}>Contact</Link>
           </div>
 
           <div className="flex flex-col gap-4 items-center md:items-start mx-auto md:mx-0 col-span-1">
-            <h4 className="text-primary mb-4 font-medium text-center md:text-left">Concierge</h4>
+            <h4 className="text-primary mb-4 font-medium text-center md:text-left">Contact Us</h4>
             {addressLines.map((line, i) => (
-              <span key={i} className={theme === 'light' ? 'text-black/60' : 'text-primary'}>{line}</span>
+              <span key={i} className={theme === 'light' ? 'text-black/80' : 'text-primary opacity-90'}>{line}</span>
             ))}
             <a href={`tel:${displayPhone.replace(/\s/g, '')}`} className={`transition-colors ${theme === 'light' ? 'text-black/80 hover:text-black' : 'text-primary hover:text-white'}`}>
               {displayPhone}
             </a>
-            <a href={`mailto:${displayEmail}`} className={`transition-colors normal-case ${theme === 'light' ? 'text-black/60 hover:text-black' : 'text-primary hover:text-white'}`}>
+            <a href={`mailto:${displayEmail}`} className={`transition-colors normal-case ${theme === 'light' ? 'text-black/80 hover:text-black' : 'text-primary hover:text-white'}`}>
               {displayEmail}
             </a>
           </div>
@@ -75,11 +75,11 @@ export default function Footer() {
 
       </div>
 
-      <div className={`max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-center ${theme === 'light' ? 'text-black/20' : 'text-primary'}`}>
+      <div className={`max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-center ${theme === 'light' ? 'text-black/40' : 'text-primary opacity-60'}`}>
         <p>&copy; {currentYear} SOLANGE. ALL RIGHTS RESERVED.</p>
         <div className="flex gap-8 justify-center">
-          <Link href="/privacy" className={`transition-colors ${theme === 'light' ? 'hover:text-black' : 'hover:text-primary'}`}>Privacité</Link>
-          <Link href="/terms" className={`transition-colors ${theme === 'light' ? 'hover:text-black' : 'hover:text-primary'}`}>Terms</Link>
+          <Link href="/privacy" className={`transition-colors ${theme === 'light' ? 'hover:text-black' : 'hover:opacity-100'}`}>Privacy</Link>
+          <Link href="/terms" className={`transition-colors ${theme === 'light' ? 'hover:text-black' : 'hover:opacity-100'}`}>Terms</Link>
         </div>
       </div>
     </footer>

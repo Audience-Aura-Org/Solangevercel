@@ -15,11 +15,11 @@ export default function CTASection() {
       </div>
 
       <div className="max-w-3xl mx-auto text-center relative z-10 w-full">
-        <span className="text-[10px] uppercase tracking-[0.4em] text-primary block mb-8">The Invitation</span>
+        <span className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold block mb-8">Ready?</span>
 
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-primary mb-10 leading-[1.1] tracking-tight">
-          Reserve Your <br />
-          <span className="italic font-light text-primary">Appointment</span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-10 leading-[1.1] tracking-tight">
+          Book Your <br />
+          <span className="italic font-light text-accent">Appointment</span>
         </h2>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full sm:w-auto">
@@ -29,8 +29,8 @@ export default function CTASection() {
             </Button>
           </Link>
           <Link href="/contact" className="w-full sm:w-auto">
-            <Button variant="ghost" size="lg" className="w-full sm:w-auto">
-              Contact Concierge
+            <Button variant="ghost" size="lg" className="w-full sm:w-auto text-white border-white/20 hover:bg-white/10">
+              Talk to Us
             </Button>
           </Link>
         </div>

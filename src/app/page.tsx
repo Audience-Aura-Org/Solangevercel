@@ -37,8 +37,8 @@ export default async function Home() {
 
   const videos = videoMedia.length > 0 ? videoMedia.map((m: any) => m.url) : FALLBACK_VIDEOS;
   const fallbackImage = imageMedia[0]?.url || FALLBACK_IMAGE;
-  const heroTitle = settings?.heroTitle || 'Luxury Hair Braiding Experience';
-  const heroSubtitle = settings?.heroSubtitle || 'Premium braiding services with liquid glass salon aesthetics';
+  const heroTitle = settings?.heroTitle || 'Beautiful Hair Braiding';
+  const heroSubtitle = settings?.heroSubtitle || 'Expert hair braiding services. We also offer home visits!';
   const services = settings?.services || [];
 
   return (
@@ -48,7 +48,7 @@ export default async function Home() {
         subtitle={heroSubtitle}
         videos={videos}
         fallbackImage={fallbackImage}
-        ctaText="Book Your Appointment"
+        ctaText="Book Now"
         ctaLink="/booking"
       />
       <ServicesSection services={services} />
@@ -59,8 +59,8 @@ export default async function Home() {
       <ConversationTrigger
         position="bottom-right"
         style="bubble"
-        message="Ready for a transformation? Let's schedule your appointment."
-        buttonText="Book Your Journey"
+        message="Want new braids? Let's book your appointment!"
+        buttonText="Book Now"
       />
     </div>
   );

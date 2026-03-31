@@ -54,7 +54,7 @@ export default function ExperienceSection() {
                 >
                     <motion.span variants={itemVariants} className="text-[10px] uppercase tracking-[0.5em] text-accent block">The Princess Line</motion.span>
                     <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-serif text-primary leading-tight">
-                        Complete <span className="italic font-light text-accent">Artistry</span>.
+                        Perfect <span className="italic font-light text-accent">Braids & Styles</span>.
                     </motion.h2>
                 </motion.div>
 
@@ -70,7 +70,7 @@ export default function ExperienceSection() {
                         <motion.div key={f.title} variants={itemVariants} className="relative group">
                             <span className="absolute -left-6 -top-4 text-3xl font-serif text-accent transition-colors">0{i + 1}</span>
                             <h3 className="text-xl font-serif text-primary mb-4 border-b border-accent pb-2 inline-block">{f.title}</h3>
-                            <p className="text-[11px] text-muted font-light leading-relaxed tracking-wide">
+                            <p className="text-[11px] text-gray-200 font-light leading-relaxed tracking-wide">
                                 {f.description}
                             </p>
                         </motion.div>
@@ -80,32 +80,32 @@ export default function ExperienceSection() {
                 {/* Studio Info & Policies - Compacted */}
                 <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-start border-t border-surface pt-16">
                     <div>
-                        <span className="text-[9px] uppercase tracking-[0.4em] text-accent block mb-4">Maison Location</span>
+                        <span className="text-[9px] uppercase tracking-[0.4em] text-accent block mb-4">Our Location</span>
                         <h3 className="text-2xl md:text-3xl font-serif text-primary mb-6 leading-snug">
                             8150 Lakecrest Dr <br />
-                            <span className="text-accent">Greenbelt</span>
+                            <span className="text-accent">Greenbelt, MD</span>
                         </h3>
 
                         <div className="flex flex-wrap gap-x-12 gap-y-6">
                             <div className="flex items-start gap-4">
                                 <div className="w-px h-10 bg-primary"></div>
                                 <div>
-                                    <span className="text-[9px] uppercase tracking-widest text-accent block mb-1">Concierge</span>
+                                    <span className="text-[9px] uppercase tracking-widest text-accent block mb-1">Call or Text</span>
                                     <p className="text-base text-primary font-serif">+1 301 454 9435</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
                                 <div className="w-px h-10 bg-dark-surface"></div>
                                 <div>
-                                    <span className="text-[8px] uppercase tracking-widest text-accent block mb-1">Reservation</span>
-                                    <p className="text-[10px] text-primary font-light">$30 deposit required</p>
+                                    <span className="text-[8px] uppercase tracking-widest text-accent block mb-1">Booking</span>
+                                    <p className="text-[10px] text-gray-200 font-light">$30 deposit required</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
                                 <div className="w-px h-10 bg-dark-surface"></div>
                                 <div>
-                                    <span className="text-[8px] uppercase tracking-widest text-accent block mb-1">QA</span>
-                                    <p className="text-[10px] text-primary font-light">Complaints: 3 days MAX</p>
+                                    <span className="text-[8px] uppercase tracking-widest text-accent block mb-1">Guarantee</span>
+                                    <p className="text-[10px] text-gray-200 font-light">Tell us within 3 days</p>
                                 </div>
                             </div>
                         </div>
@@ -113,25 +113,25 @@ export default function ExperienceSection() {
 
                     <div className="bg-dark p-8 lg:p-10 border border-surface rounded-xl flex items-center justify-between gap-8">
                         <div className="flex-1">
-                            <span className="text-[9px] uppercase tracking-[0.4em] text-accent block mb-4">Protocol</span>
-                            <ul className="space-y-3 text-[11px] text-body font-light leading-snug">
+                            <span className="text-[9px] uppercase tracking-[0.4em] text-accent block mb-4">Our Rules</span>
+                            <ul className="space-y-3 text-[11px] text-gray-200 font-light leading-snug">
                                 <li className="flex gap-2">
                                     <span className="text-accent">/</span>
-                                    Extreme hygiene standards.
+                                    Clean and safe environment.
                                 </li>
                                 <li className="flex gap-2">
                                     <span className="text-accent">/</span>
-                                    Hair pre-washed if possible.
+                                    Please wash your hair before coming.
                                 </li>
                                 <li className="flex gap-2">
                                     <span className="text-accent">/</span>
-                                    24h cancellation notice.
+                                    Let us know 24h before if you can't come.
                                 </li>
                             </ul>
                         </div>
                         <div className="hidden sm:block w-px h-20 bg-white/5"></div>
                         <div className="hidden sm:block text-center">
-                            <p className="text-[7px] uppercase tracking-[0.3em] text-muted mb-2">Since</p>
+                            <p className="text-[7px] uppercase tracking-[0.3em] text-gray-400 mb-2">Since</p>
                             <p className="text-xl font-serif text-accent opacity-50">2012</p>
                         </div>
                     </div>
