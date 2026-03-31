@@ -19,7 +19,7 @@ export default function HeroVideo({
   fallbackImage = '/images/hero-fallback.jpg',
   title,
   subtitle,
-  ctaText = 'Make a Reservation',
+  ctaText = 'Book Now',
   ctaLink = '/booking',
 }: HeroVideoProps) {
   const videoList = videos || [videoUrl, '/videos/hero-2.mp4', '/videos/hero-3.mp4'];
